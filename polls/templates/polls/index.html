@@ -1,0 +1,49 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fa/css/all.min.css' %}">
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <title>Workshop 9</title>
+</head>
+
+<body>
+
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-4">Workshop 9</h1>
+            <hr class="my-2">
+            <p class="lead">Questionários em cards utilizando Django.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        {% if latest_question_list %}
+            <div class="row">
+            {% for question in latest_question_list %}
+                <div class="col-sm-6">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ question.question_text }}</h5>
+                            <a href="{% url 'polls:detail' question.id %}" class="btn btn-primary">Responder</a>
+                        </div>
+                    </div>
+                </div>
+                {% if forloop.counter == 4 %}
+                    <div class="w-100"></div>
+                {% endif %}
+            {% endfor %}
+            </div>
+        {% else %}
+            <p>Sem questionários disponíveis.</p>
+        {% endif %}
+    </div>
+
+</body>
+
+</html>
